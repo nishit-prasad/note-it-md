@@ -1,3 +1,5 @@
+All set to contribute? Grab an open issue with the [help-wanted](/labels/help%20wanted) or [good-first-issue](/labels/good%20first%20issue) label and jump in.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
