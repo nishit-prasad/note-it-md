@@ -1,7 +1,7 @@
 import { Icon, Flex, Heading, Box, Spacer, Button } from '@chakra-ui/react';
 import { HiOutlineBookmarkAlt } from 'react-icons/hi';
 
-const Header = () => {
+const Header = props => {
   return (
     <Flex
       borderBottom="2px"
@@ -12,16 +12,18 @@ const Header = () => {
     >
       <Flex p="2" alignItems={'center'}>
         <Icon color="teal" as={HiOutlineBookmarkAlt} w={8} h={8} />
-        <Heading size="md" color="gray.600">
+        <Heading userSelect="none" size="md" color="gray.600">
           Notes App
         </Heading>
       </Flex>
       <Spacer />
       <Box>
-        <Button colorScheme="teal" mr="4">
+        <Button colorScheme="teal" mr="4" onClick={props.click}>
           Sign Up
         </Button>
-        <Button colorScheme="teal">Sign in</Button>
+        <Button colorScheme="teal" onClick={props.click}>
+          Sign in
+        </Button>
       </Box>
     </Flex>
   );
