@@ -12,23 +12,35 @@ import {
   useColorModeValue,
   ScaleFade,
   IconButton,
+  CloseButton,
+  Tooltip,
 } from '@chakra-ui/react';
-import { FcGoogle } from 'react-icons/fc';
+import LoginCard from './LoginCard';
 import React from 'react';
+import SignUpCard from './SignUpCard';
 
 const AuthCard = props => {
-  const { isOpen } = props;
+  const { isCardOpen, closeCardHandler } = props;
+  const [showLogin, setShowLogin] = React.useState(true);
+
+  const showLoginHandler = () => setShowLogin(!showLogin);
 
   return (
-    <ScaleFade initialScale={0.8} in={isOpen}>
+    <ScaleFade initialScale={0.8} in={isCardOpen}>
       <Flex
         align={'center'}
         justify={'center'}
         bg={useColorModeValue('gray.50', 'gray.600')}
+        width={showLogin ? 'lg' : '5xl'}
       >
-        <Stack bg="gray.100" spacing={8} mx={'auto'} maxW={'xl'} py={12} px={6}>
+        <Stack bg="gray.100" width="inherit" px={6}>
           <Stack align={'center'}>
-            <Heading fontSize={'2xl'}>Sign in to your account</Heading>
+            <Heading fontSize={'2xl'}>
+              {`${showLogin ? 'Sign in to' : "Let's create"} your account`}
+            </Heading>
+            <Tooltip label="Close pop-up" placement="right">
+              <CloseButton onClick={closeCardHandler} />
+            </Tooltip>
           </Stack>
           <Box
             rounded={'lg'}
@@ -36,44 +48,11 @@ const AuthCard = props => {
             boxShadow={'lg'}
             p={10}
           >
-            <Stack spacing={2}>
-              <FormControl id="email">
-                <FormLabel>Email address</FormLabel>
-                <Input variant="flushed" type="email" />
-              </FormControl>
-              <FormControl id="password">
-                <FormLabel>Password</FormLabel>
-                <Input variant="flushed" type="password" />
-              </FormControl>
-              <Stack fontSize="md" spacing={10}>
-                <Stack
-                  direction={{ base: 'column', sm: 'row' }}
-                  justify={'space-around'}
-                >
-                  <Checkbox colorScheme="teal">Remember me</Checkbox>
-                  <Link color="blue.400" _hover={{ color: 'blue.600' }}>
-                    Forgot password?
-                  </Link>
-                </Stack>
-                <Stack>
-                  <Flex justify="space-around">
-                    <Button colorScheme="teal">Sign Up</Button>
-                    <Button colorScheme="teal">Sign in</Button>
-                    <IconButton
-                      colorScheme="teal"
-                      size="md"
-                      rounded="lg"
-                      variant="outline"
-                      as="a"
-                      target="_blank"
-                      href="#"
-                      aria-label="Google Sign-In"
-                      icon={<FcGoogle />}
-                    />
-                  </Flex>
-                </Stack>
-              </Stack>
-            </Stack>
+            {showLogin ? (
+              <LoginCard handler={showLoginHandler} />
+            ) : (
+              <SignUpCard handler={showLoginHandler} isOpen={isCardOpen} />
+            )}
           </Box>
         </Stack>
       </Flex>
